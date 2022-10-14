@@ -3,8 +3,8 @@
 // Video de ayuda para playWright -> https://www.youtube.com/watch?v=YjbRkt8cew8
 
 const {chromium} = require('playwright');
-const { delay } = require('./delay.js');
 const { nuevoDia } = require('./src/nuevoDia.js');
+const { reservarDia } = require('./src/reservarDia.js');
 
 (async function main(){
   const browser = await chromium.launch({headless: false})
@@ -21,12 +21,9 @@ const { nuevoDia } = require('./src/nuevoDia.js');
   await btnRol.waitFor()
   btnRol.click()
 
-  const reservarDia = await nuevoDia(page);
+  const reservaDia = await nuevoDia(page)
+  if (reservaDia === false) return await browser.close()
 
-  console.log({reservarDia})
-
-  if (reservarDia === false) return await browser.close();
-
-
+  await reservarDia(page)
 })()
 
