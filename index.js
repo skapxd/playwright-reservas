@@ -4,6 +4,7 @@
 
 const {chromium} = require('playwright');
 const { delay } = require('./delay.js');
+const { nuevoDia } = require('./src/nuevoDia.js');
 
 (async function main(){
   const browser = await chromium.launch({headless: false})
@@ -20,33 +21,12 @@ const { delay } = require('./delay.js');
   await btnRol.waitFor()
   btnRol.click()
 
-  let reservarDia = await nuevoDia(page);
+  const reservarDia = await nuevoDia(page);
 
-  //console.log({reservarDia})
-  // await browser.close();
+  console.log({reservarDia})
+
+  if (reservarDia === false) return await browser.close();
+
+
 })()
 
-/**
- * 
- * @param {import('playwright').Page} page 
- * @returns 
- */
-async function nuevoDia(page){
-  await page.waitForSelector('[class="nav-link nav-fechas"]', {state: "visible"});
-
-  let dias = await page.locator('.nav-item').count()
-  let texto = (await page.locator('.nav-item').innerText()).valueOf()[dias-1]
-  //let texto = await page.locator('.nav-item')[dias-1];
-
-  console.log(`Respuesta días: ${dias} respuesta texto: ${texto}`);
-
-  //let dia = texto?.split(',')[0];
-
-  // console.log({dia});
-
-  // return {'lunes' : true,
-  //         'martes' : true,
-  //         'viernes' : true,
-  //         default : false
-  //       }[dia]
-}
