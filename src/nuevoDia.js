@@ -3,7 +3,7 @@
  * @returns 
  */
 module.exports.nuevoDia = async function(page){
-  await page.waitForSelector('[class="nav-link nav-fechas"]', {state: "visible"});
+  await page.waitForSelector('[class="nav-link nav-fechas"]', {state: "visible"})
 
   const text = await page.locator('.nav-item').last().innerText()
 

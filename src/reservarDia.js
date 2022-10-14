@@ -4,18 +4,16 @@
  */
 module.exports.reservarDia = async function(page){    
   const lastDay = page.locator('.nav-item').last()
-  await lastDay.click();
+  await lastDay.click()
 
   const dataId = await lastDay.getAttribute('data-id-fecha')
 
-  await page.locator(`[href="/Q10/Asistencia/Crear/${dataId}/01"]`).click();
+  const btnHacerReserva = await page.locator(`[href="/Q10/Asistencia/Crear/${dataId}/01"]`).click();
 
-  // await page.waitForSelector('#Reserva_res_compra_almuerzo', {state: "visible"});
+  await page.locator('#Reserva_res_compra_almuerzo').first().click()
 
-  // await page.locator('#Reserva_res_compra_almuerzo').first().click()
-  
-  // await page.locator('[class="filter-option pull-left"]').click()
-  // await page.locator('[rel="1"]').click()
+  await page.locator('[class="filter-option pull-left"]').click()
+  const btnHora = await page.locator("a", {hasText: '12:00 p.m.'}).click()
 
-  // await page.locator('#submit-btn').click()
+  await page.click('#submit-btn')
 }
