@@ -6,23 +6,23 @@ const {chromium} = require('playwright');
 const { delay } = require('./delay.js');
 
 (async function main(){
-  const browser = await chromium.launch({headless: false});
-  const page = await browser.newPage();
-  await page.goto('https://jack.q10.com/Q10/Asistencia');
-
-  const user = await page.locator('[id="NombreUsuario"]').type('jrivera@q10.com');
-  const pass = await page.locator('[id="Contrasena"]').type('zxasqw');
-
-  await page.click('[id="submit-btn"]'); 
+  const browser = await chromium.launch({headless: false})
+  const page = await browser.newPage()
   
-  //TODO: Hacer que espere al modal
+  await page.goto('https://jack.q10.com/Q10/Asistencia')
+
+  const user = await page.locator('#NombreUsuario').type('jrivera@q10.com')
+  const pass = await page.locator('#Contrasena').type('zxasqw')
+
+  await page.click('#submit-btn')
+  
   const btnRol = page.locator('[data-id="3"]')
   await btnRol.waitFor()
   btnRol.click()
 
   let reservarDia = await nuevoDia(page);
 
-  console.log({reservarDia})
+  //console.log({reservarDia})
   // await browser.close();
 })()
 
@@ -32,12 +32,15 @@ const { delay } = require('./delay.js');
  * @returns 
  */
 async function nuevoDia(page){
-  let dias = page.locator('[class="nav-link nav-fechas"]')
-  await dias.waitFor({state: 'visible'})
-  console.log({dias})
-  // let texto = await page.locator('[class="nav-link nav-fechas"]')[dias-1];
+  await page.waitForSelector('[class="nav-link nav-fechas"]', {state: "visible"});
 
-  // let dia = texto?.split(',')[0];
+  let dias = await page.locator('.nav-item').count()
+  let texto = (await page.locator('.nav-item').innerText()).valueOf()[dias-1]
+  //let texto = await page.locator('.nav-item')[dias-1];
+
+  console.log(`Respuesta días: ${dias} respuesta texto: ${texto}`);
+
+  //let dia = texto?.split(',')[0];
 
   // console.log({dia});
 
