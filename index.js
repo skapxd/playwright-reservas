@@ -8,7 +8,7 @@ const { nuevoDia } = require('./src/nuevoDia.js');
 const { reservarDia } = require('./src/reservarDia.js');
 
 schedule('* * * * * *',  () => {
-  console.log('first')
+  console.log('Proces.env.DB -> ', process.env.DB)
 })
 
 // (async function main(){
