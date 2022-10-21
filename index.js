@@ -28,6 +28,12 @@ async function main(){
 
   await reservarDia(page)
 
+  sendMail({
+    email: 'jrivera@q10.com',
+    message: 'Su reserva se ha realizado exitosamente',
+    subject: 'Reserva automatica en JACK'
+  })
+
   return await browser.close()
 }
 
