@@ -6,7 +6,6 @@ const { schedule } = require("node-cron");
 const { chromium } = require("playwright");
 const { credentials } = require("./credentials.js");
 const { env } = require("./global.js");
-const { sendMail } = require("./mail.js");
 const { nuevoDia } = require("./src/nuevoDia.js");
 const { reservarDia } = require("./src/reservarDia.js");
 

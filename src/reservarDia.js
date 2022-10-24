@@ -37,5 +37,5 @@ module.exports.reservarDia = async function (page) {
       });
     });
 
-  await page.pause();
+  // await page.pause();
 };
