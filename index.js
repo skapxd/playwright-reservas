@@ -4,24 +4,23 @@
 
 const { schedule } = require("node-cron");
 const { chromium } = require("playwright");
+const { credentials } = require("./credentials.js");
+const { env } = require("./global.js");
 const { sendMail } = require("./mail.js");
 const { nuevoDia } = require("./src/nuevoDia.js");
 const { reservarDia } = require("./src/reservarDia.js");
 
 async function main() {
-  const isProd = Boolean(process.env.isProd);
-  const user = "jrivera@q10.com";
-  const pass = "zxasqw";
-
   const browser = await chromium.launch({
-    headless: isProd,
+    headless: env.isProd,
   });
+
   const page = await browser.newPage();
 
   await page.goto("https://jack.q10.com/Q10/Asistencia");
 
-  await page.locator("#NombreUsuario").type(user);
-  await page.locator("#Contrasena").type(pass);
+  await page.locator("#NombreUsuario").type(credentials.user);
+  await page.locator("#Contrasena").type(credentials.pass);
 
   await page.click("#submit-btn");
 
@@ -33,13 +32,6 @@ async function main() {
   if (reservaDia === false) return await browser.close();
 
   await reservarDia(page);
-
-  if (isProd)
-    sendMail({
-      email: user,
-      message: "Su reserva se ha realizado exitosamente",
-      subject: "Reserva automatica en JACK",
-    });
 
   // return await browser.close();
 }

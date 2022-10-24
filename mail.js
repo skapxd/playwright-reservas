@@ -1,5 +1,6 @@
 // @ts-check
-const {createTransport} = require('nodemailer')
+const { createTransport } = require("nodemailer");
+const { env } = require("./global");
 
 /**
  * @param {Object} props
@@ -15,12 +16,14 @@ module.exports.sendMail = async (props) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'automail.noresponder@gmail.com',
-      pass: 'puhhfdrqhhefcjwj',
-    }, 
+      user: "automail.noresponder@gmail.com",
+      pass: "puhhfdrqhhefcjwj",
+    },
   });
 
   await transporter.verify();
+
+  if (!env.isProd) return;
 
   await transporter.sendMail({
     from: "automail.noresponder@gmail.com",
