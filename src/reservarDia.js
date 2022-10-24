@@ -15,7 +15,7 @@ module.exports.reservarDia = async function (page) {
   await page.locator("#Reserva_res_compra_almuerzo").first().click();
 
   await page.locator('[class="filter-option pull-left"]').click();
-  const btnHora = await page.locator("a", { hasText: "	12:30 p.m." }).click();
+  const btnHora = await page.locator("a", { hasText: "12:00 p.m." }).click();
 
   await page.click("#submit-btn");
 

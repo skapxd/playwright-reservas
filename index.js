@@ -33,29 +33,28 @@ async function main() {
 
   await reservarDia(page);
 
-  // return await browser.close();
+  return await browser.close();
 }
 
-(function init(params) {
-  // create Date object for current location
-  const date = new Date();
+// (function init() {
+//   // create Date object for current location
+//   const date = new Date();
 
-  // convert to milliseconds, add local time zone offset and get UTC time in milliseconds
-  const utcTime = date.getTime() + date.getTimezoneOffset() * 60000;
+//   // convert to milliseconds, add local time zone offset and get UTC time in milliseconds
+//   const utcTime = date.getTime() + date.getTimezoneOffset() * 60000;
 
-  // time offset for New Zealand is +12
-  const timeOffset = -5;
+//   // time offset for New Zealand is +12
+//   const timeOffset = -5;
 
-  // create new Date object for a different timezone using supplied its GMT offset.
-  const colombiaHours = new Date(utcTime + 3600000 * timeOffset);
+//   // create new Date object for a different timezone using supplied its GMT offset.
+//   const colombiaHours = new Date(utcTime + 3600000 * timeOffset);
 
-  const canReserve = colombiaHours.getHours() === 12;
-  if (!canReserve) return;
+//   const canReserve = colombiaHours.getHours() === 12;
+//   if (!canReserve) return;
 
-  main();
-})();
+//   main();
+// })();
 
-/**
 schedule("* * 1 * * *", () => {
   // create Date object for current location
   const date = new Date();
@@ -69,9 +68,8 @@ schedule("* * 1 * * *", () => {
   // create new Date object for a different timezone using supplied its GMT offset.
   const colombiaHours = new Date(utcTime + 3600000 * timeOffset);
 
-  const canReserve = colombiaHours.getHours() === 12;
+  const canReserve = colombiaHours.getHours() === 1;
   if (!canReserve) return;
 
   main();
 });
-*/
