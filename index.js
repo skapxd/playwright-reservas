@@ -44,6 +44,26 @@ async function main() {
   // return await browser.close();
 }
 
+(function init(params) {
+  // create Date object for current location
+  const date = new Date();
+
+  // convert to milliseconds, add local time zone offset and get UTC time in milliseconds
+  const utcTime = date.getTime() + date.getTimezoneOffset() * 60000;
+
+  // time offset for New Zealand is +12
+  const timeOffset = -5;
+
+  // create new Date object for a different timezone using supplied its GMT offset.
+  const colombiaHours = new Date(utcTime + 3600000 * timeOffset);
+
+  const canReserve = colombiaHours.getHours() === 12;
+  if (!canReserve) return;
+
+  main();
+})();
+
+/**
 schedule("* * 1 * * *", () => {
   // create Date object for current location
   const date = new Date();
@@ -62,3 +82,4 @@ schedule("* * 1 * * *", () => {
 
   main();
 });
+*/
