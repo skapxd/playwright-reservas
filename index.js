@@ -9,7 +9,9 @@ const { nuevoDia } = require("./src/nuevoDia.js");
 const { reservarDia } = require("./src/reservarDia.js");
 
 async function main() {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: Boolean(process.env.isProd),
+  });
   const page = await browser.newPage();
 
   await page.goto("https://jack.q10.com/Q10/Asistencia");
@@ -37,9 +39,7 @@ async function main() {
   return await browser.close();
 }
 
-schedule("* * 1 * * *", () => {
-
-});
+schedule("* * 1 * * *", () => {});
 (function init(params) {
   // create Date object for current location
   const date = new Date();
@@ -53,7 +53,7 @@ schedule("* * 1 * * *", () => {
   // create new Date object for a different timezone using supplied its GMT offset.
   const colombiaHours = new Date(utcTime + 3600000 * timeOffset);
 
-  const canReserve = colombiaHours.getHours() === 11 
+  const canReserve = colombiaHours.getHours() === 12;
   if (!canReserve) return;
 
   main();
