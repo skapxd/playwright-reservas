@@ -10,8 +10,8 @@ const { reservarDia } = require("./src/reservarDia.js");
 
 async function main() {
   const isProd = Boolean(process.env.isProd);
-  const user = "mlondono@q10.com" ?? "jrivera@q10.com";
-  const pass = "manuelq10" ?? "zxasqw";
+  const user = "jrivera@q10.com";
+  const pass = "zxasqw";
 
   const browser = await chromium.launch({
     headless: isProd,
@@ -44,8 +44,7 @@ async function main() {
   // return await browser.close();
 }
 
-schedule("* * 1 * * *", () => {});
-(function init(params) {
+schedule("* * 1 * * *", () => {
   // create Date object for current location
   const date = new Date();
 
@@ -62,4 +61,4 @@ schedule("* * 1 * * *", () => {});
   if (!canReserve) return;
 
   main();
-})();
+});
