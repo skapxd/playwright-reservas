@@ -1,17 +1,21 @@
 /**
- * @param {import('playwright').Page} page 
- * @returns 
+ * @param {import('playwright').Page} page
+ * @returns
  */
-module.exports.nuevoDia = async function(page){
-  await page.waitForSelector('[class="nav-link nav-fechas"]', {state: "visible"})
+module.exports.nuevoDia = async function (page) {
+  await page.waitForSelector('[class="nav-link nav-fechas"]', {
+    state: "visible",
+  });
 
-  const text = await page.locator('.nav-item').last().innerText()
+  const text = await page.locator(".nav-item").last().innerText();
 
-  const [dia] = text?.split(',')
+  const [dia] = text?.split(",");
 
-  return {
-    'lunes' : true,
-    'martes' : true,
-    'viernes' : true,
-  }[dia] ?? false
-}
+  return (
+    {
+      lunes: true,
+      martes: true,
+      viernes: true,
+    }[dia] ?? false
+  );
+};
