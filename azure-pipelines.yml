@@ -33,12 +33,12 @@ steps:
   displayName: 'Install Playwright Browsers'
 
 - script: | 
-    npx playwright test
+    npx playwright test --trace=on
   displayName: Run Playwright tests
 
 - task: CopyFiles@2
   inputs:
-    contents: '**/playwright-report/index.html'
+    contents: '**/playwright-report/**.**'
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
