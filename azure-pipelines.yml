@@ -38,7 +38,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    contents: '**/playwright-report/**.**'
+    contents: '**/playwright-report/**/**.**'
     targetFolder: '$(build.artifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
