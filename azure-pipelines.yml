@@ -18,11 +18,15 @@ steps:
 - task: NodeTool@0
   inputs:
     versionSpec: '16.15.1'
-  displayName: 'Install Node.js'
+  displayName: 'Node install'
+
+- script: |
+    ls
+  displayName: view dirs
 
 - script: |
     cd .\playwrigth\ && yarn install
-  displayName: 'install js packages'
+  displayName: 'Yarn install'
 
 - script: | 
     npx playwright install --with-deps
